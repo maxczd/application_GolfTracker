@@ -1,5 +1,6 @@
 package com.cazade.golf.projetgolf;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -9,6 +10,8 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 
 public class DatabaseHelper extends SQLiteOpenHelper {
+
+    SQLiteDatabase db;
     public static final String DATABASE_NAME = "Golf.db";
 
     public static final String TABLE_NAME_1 = "user";
@@ -58,5 +61,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS" + TABLE_NAME_3);
         onCreate(db);
 
+    }
+
+    public void insertUser(User u){
+        db = this.getWritableDatabase();
+        ContentValues values =  new ContentValues();
+        values.put(COL_1_2, u.getEmail());
+        values.put(COL_1_2, u.getEmail());
+        values.put(COL_1_2, u.getEmail());
     }
 }
