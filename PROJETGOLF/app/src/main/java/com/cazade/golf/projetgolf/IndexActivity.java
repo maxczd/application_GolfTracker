@@ -78,6 +78,17 @@ public class IndexActivity extends AppCompatActivity implements IndexFragment.On
     }
 
     @Override
+    public void onLoginSubmit(String email, String pass) {
+        String passCheck = db.searchPass(email);
+
+        if(passCheck.equals(pass)){
+            Toast.makeText(getApplicationContext(), "WELCOME" + email, Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(getApplicationContext(), "not found", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
     public void onBackPressed(){
         if (FM.getBackStackEntryCount() > 0) {
             Log.i("MainActivity", "popping backstack");

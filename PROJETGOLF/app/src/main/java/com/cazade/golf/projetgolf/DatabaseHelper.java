@@ -2,6 +2,7 @@ package com.cazade.golf.projetgolf;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -67,10 +68,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db = this.getWritableDatabase();
         ContentValues values =  new ContentValues();
 
+        String query = "select * from user";
+        Cursor cursor = db.rawQuery(query, null);
+        int count = cursor.getCount();
+
         values.put(COL_1_2, u.getEmail());
         values.put(COL_1_3, u.getPassword());
         values.put(COL_1_4, u.getPseudo());
 
         db.insert(TABLE_NAME_1, null, values);
+    }
+
+    public String searchPass(String email){
+        db = this.getReadableDatabase();
+        String query = "select " + COL_1_2 +" , " + COL_1_3 +" from "+ TABLE_NAME_1;
+        Cursor cursor = db.rawQuery(query, null);
+        String mail, pass;
+        pass = "not found";
+        if (cursor.moveToFirst()){
+            do{
+                mail = cursor.getString(0);
+                if(mail.equals(email)){
+                    pass = cursor.getString(1);
+                    break;
+                }
+            }while(cursor.moveToNext());
+        }
+
+        return pass;
     }
 }
