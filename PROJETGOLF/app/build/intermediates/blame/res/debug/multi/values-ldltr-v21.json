@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "D:\\Programmation\\Android\\Nice Shot\\PROJETGOLF\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-ldltr-v21\\values-ldltr-v21.xml",
+        "outputFile": "K:\\Programmation\\Nice Shot\\PROJETGOLF\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-ldltr-v21\\values-ldltr-v21.xml",
         "map": [
             {
                 "to": {
@@ -11,7 +11,7 @@
                     "endOffset": 163
                 },
                 "from": {
-                    "file": "C:\\Users\\bapti\\.android\\build-cache\\7a5531264f01f3e6d39ea57b1bb5a03442c85680\\output\\res\\values-ldltr-v21\\values-ldltr-v21.xml",
+                    "file": "C:\\Users\\Baptiste\\.android\\build-cache\\19bafccdee24c4c9f535702477ae66cf2c021ba6\\output\\res\\values-ldltr-v21\\values-ldltr-v21.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,

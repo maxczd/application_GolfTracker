@@ -1,0 +1,66 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="layout.IndexFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/logo"
+            android:id="@+id/imageView2"
+            android:layout_marginTop="30dp"/>
+
+        <TextView
+            android:text="Faîtes ressortir le meilleur de votre jeu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/slogan"
+            android:textSize="30dp"
+            android:textColor="#ffffff"
+            android:textAlignment="center"
+            android:layout_marginTop="120dp"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="60dp"
+            android:gravity="center|bottom"
+            android:layout_weight="1">
+
+
+            <Button
+                android:text="Se connecter"
+                android:layout_width="190dp"
+                android:layout_height="70dp"
+                android:id="@+id/toggleButton"
+                android:layout_weight="0"
+                android:background="#383839"
+                android:textColor="#ffffff"
+                android:textSize="20dp"
+                android:onClick="login"/>
+
+            <Button
+                android:text="S'inscrire"
+                android:layout_width="190dp"
+                android:layout_height="70dp"
+                android:id="@+id/signUpButton"
+                android:layout_weight="0"
+                android:background="#39b54a"
+                android:textColor="#ffffff"
+                android:textSize="20dp"
+                android:onClick="signUp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

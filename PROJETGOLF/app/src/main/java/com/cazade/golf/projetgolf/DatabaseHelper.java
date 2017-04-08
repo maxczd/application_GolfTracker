@@ -20,7 +20,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COL_1_3 = "PASSWORD";
     public static final String COL_1_4 = "PSEUDO";
     public static final String COL_1_5 = "HANDICAP";
-    public static final String COL_1_5 = "PHOTO";
+    public static final String COL_1_6 = "PHOTO";
 
     public static final String TABLE_NAME_2 = "hole";
     public static final String COL_2_1 = "ID";
