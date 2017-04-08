@@ -7,6 +7,8 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.cazade.golf.projetgolf.R;
 
@@ -29,6 +31,9 @@ public class SignUpFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    EditText email, pass1, pass2, pseudo;
+    Button signup;
 
     public SignUpFragment() {
         // Required empty public constructor
@@ -65,7 +70,22 @@ public class SignUpFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sign_up, container, false);
+        View v = inflater.inflate(R.layout.fragment_sign_up, container, false);
+        email =(EditText) v.findViewById(R.id.emailEt);
+        pass1 = (EditText) v.findViewById(R.id.passEt1);
+        pass2 = (EditText) v.findViewById(R.id.passEt2);
+        pseudo = (EditText) v.findViewById(R.id.pseudoEt);
+        signup =(Button) v.findViewById(R.id.signUpB);
+
+        signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(pass1.getText().toString() == pass2.getText().toString())
+                mListener.signUpSubmit(email.getText().toString(), pass1.getText().toString(), pseudo.getText().toString());
+            }
+        });
+
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -105,5 +125,6 @@ public class SignUpFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onSignUpFragmentInteraction(Uri uri);
+        void signUpSubmit(String email, String pass1, String pseudo);
     }
 }

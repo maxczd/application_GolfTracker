@@ -76,7 +76,7 @@
             android:layout_gravity="center"
             android:inputType="textEmailAddress"
             android:ems="10"
-            android:id="@+id/editText2"
+            android:id="@+id/emailEt"
             android:hint="Email"
             android:layout_marginTop="10dp"/>
 
@@ -86,8 +86,17 @@
             android:layout_gravity="center"
             android:inputType="textPassword"
             android:ems="10"
-            android:id="@+id/editText3"
+            android:id="@+id/passEt1"
             android:hint="Mot de passe" />
+
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/passEt2"
+            android:hint="Confirmation Mot de passe" />
 
         <EditText
             android:layout_width="300dp"
@@ -95,16 +104,16 @@
             android:layout_gravity="center"
             android:inputType="textPersonName"
             android:ems="10"
-            android:id="@+id/editText4"
+            android:id="@+id/pseudoEt"
             android:hint="Pseudo" />
 
         <Button
             android:layout_width="300dp"
             android:layout_gravity="center"
             android:layout_height="wrap_content"
-            android:id="@+id/button"
+            android:id="@+id/signUpB"
             android:layout_marginTop="30dp"
-            android:background="@drawable/bg_button"/>
+            android:background="@drawable/bg_button" />
     </LinearLayout>
 
 </FrameLayout>

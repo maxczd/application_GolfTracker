@@ -62,6 +62,11 @@ public class IndexActivity extends AppCompatActivity implements IndexFragment.On
     }
 
     @Override
+    public void signUpSubmit(String email, String pass1, String pseudo) {
+
+    }
+
+    @Override
     public void onLoginFragmentInteraction(Uri uri) {
 
     }
