@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.Toast;
 
 import layout.IndexFragment;
 import layout.LoginFragment;
@@ -18,6 +19,7 @@ public class IndexActivity extends AppCompatActivity implements IndexFragment.On
 
     Fragment signUp, login, welcome;
     FragmentManager FM;
+    DatabaseHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +65,11 @@ public class IndexActivity extends AppCompatActivity implements IndexFragment.On
 
     @Override
     public void signUpSubmit(String email, String pass1, String pseudo) {
+        db = new DatabaseHelper(IndexActivity.this);
+        User u = new User(email, pass1, pseudo);
+        db.insertUser(u);
 
+        Toast.makeText(getApplicationContext(), "Registered", Toast.LENGTH_LONG).show();
     }
 
     @Override

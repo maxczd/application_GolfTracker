@@ -1,14 +1,15 @@
 package layout;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.cazade.golf.projetgolf.R;
 
@@ -80,8 +81,12 @@ public class SignUpFragment extends Fragment {
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(pass1.getText().toString() == pass2.getText().toString())
-                mListener.signUpSubmit(email.getText().toString(), pass1.getText().toString(), pseudo.getText().toString());
+                if(pass1.getText().toString().equals(pass2.getText().toString())){
+                    mListener.signUpSubmit(email.getText().toString(), pass1.getText().toString(), pseudo.getText().toString());
+                }else {
+                    Toast.makeText(getActivity(), "Passwords don't match", Toast.LENGTH_LONG).show();
+                }
+
             }
         });
 
