@@ -3,6 +3,7 @@ package com.cazade.golf.projetgolf;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -29,20 +30,21 @@ public class IndexActivity extends AppCompatActivity implements IndexFragment.On
 
     Fragment signUp, login, welcome;
     FragmentManager FM;
-    DatabaseHelper db;
 
-    public static final String REGISTER_URL = "http://82.64.9.145/volleyRegister.php";
+    public static final String REGISTER_URL = "http://82.64.9.145/userRegister.php";
+    public static final String LOGIN_URL = "http://82.64.9.145/userLogIn.php";
     public static final String KEY_USERNAME = "username";
     public static final String KEY_PASSWORD = "password";
     public static final String KEY_EMAIL = "email";
+
+    final String USER_PSEUDO = "user_login";
+    final String USER_EMAIL = "user_password";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_index);
-
-        db = new DatabaseHelper(IndexActivity.this);
 
         signUp = new SignUpFragment();
         login = new LoginFragment();
@@ -120,13 +122,40 @@ public class IndexActivity extends AppCompatActivity implements IndexFragment.On
 
     @Override
     public void onLoginSubmit(String email, String pass) {
-        System.out.println(email);
-        String passCheck = db.searchPass(email);
-        if(passCheck.equals(pass)){
-            Toast.makeText(getApplicationContext(), "WELCOME" + email, Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(getApplicationContext(), "not found", Toast.LENGTH_SHORT).show();
-        }
+        final String mail = email;
+        final String password = pass;
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, LOGIN_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        System.out.println(response);
+                       if(response.equals("success")){
+                           Intent intent = new Intent(IndexActivity.this, UserActivity.class);
+                           intent.putExtra(USER_EMAIL, mail);
+                           intent.putExtra(USER_PSEUDO, password);
+                           startActivity(intent);
+                       }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(IndexActivity.this,error.toString(),Toast.LENGTH_LONG).show();
+                    }
+                }){
+            @Override
+            protected Map<String,String> getParams(){
+                Map<String,String> params = new HashMap<String, String>();
+                params.put(KEY_EMAIL, mail);
+                params.put(KEY_PASSWORD, password);
+                return params;
+            }
+
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+
     }
 
     @Override
