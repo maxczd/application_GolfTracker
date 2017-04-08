@@ -11,6 +11,16 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import layout.IndexFragment;
 import layout.LoginFragment;
 import layout.SignUpFragment;
@@ -21,11 +31,18 @@ public class IndexActivity extends AppCompatActivity implements IndexFragment.On
     FragmentManager FM;
     DatabaseHelper db;
 
+    public static final String REGISTER_URL = "http://82.64.9.145/volleyRegister.php";
+    public static final String KEY_USERNAME = "username";
+    public static final String KEY_PASSWORD = "password";
+    public static final String KEY_EMAIL = "email";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_index);
+
+        db = new DatabaseHelper(IndexActivity.this);
 
         signUp = new SignUpFragment();
         login = new LoginFragment();
@@ -42,7 +59,7 @@ public class IndexActivity extends AppCompatActivity implements IndexFragment.On
     public void signUp(View v){
         FM = getFragmentManager();
         FragmentTransaction FT = FM.beginTransaction();
-        FT.replace(R.id.index_content, signUp).addToBackStack("signup");
+        FT.replace(R.id.index_content, signUp).addToBackStack("signUp");
         FT.commit();
     }
 
@@ -65,11 +82,35 @@ public class IndexActivity extends AppCompatActivity implements IndexFragment.On
 
     @Override
     public void signUpSubmit(String email, String pass1, String pseudo) {
-        db = new DatabaseHelper(IndexActivity.this);
-        User u = new User(email, pass1, pseudo);
-        db.insertUser(u);
+        final String username = pseudo;
+        final String mail = email;
+        final String password = pass1;
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, REGISTER_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Toast.makeText(IndexActivity.this,response,Toast.LENGTH_LONG).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(IndexActivity.this,error.toString(),Toast.LENGTH_LONG).show();
+                    }
+                }){
+            @Override
+            protected Map<String,String> getParams(){
+                Map<String,String> params = new HashMap<String, String>();
+                params.put(KEY_USERNAME, username);
+                params.put(KEY_PASSWORD, password);
+                params.put(KEY_EMAIL, mail);
+                return params;
+            }
 
-        Toast.makeText(getApplicationContext(), "Registered", Toast.LENGTH_LONG).show();
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
     }
 
     @Override
@@ -79,8 +120,8 @@ public class IndexActivity extends AppCompatActivity implements IndexFragment.On
 
     @Override
     public void onLoginSubmit(String email, String pass) {
+        System.out.println(email);
         String passCheck = db.searchPass(email);
-
         if(passCheck.equals(pass)){
             Toast.makeText(getApplicationContext(), "WELCOME" + email, Toast.LENGTH_SHORT).show();
         }else{
