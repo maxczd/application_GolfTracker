@@ -37,8 +37,8 @@ public class IndexActivity extends AppCompatActivity implements IndexFragment.On
     public static final String KEY_PASSWORD = "password";
     public static final String KEY_EMAIL = "email";
 
-    final String USER_PSEUDO = "user_login";
-    final String USER_EMAIL = "user_password";
+    String USER_PSEUDO = "user_login";
+    String USER_EMAIL = "user_password";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

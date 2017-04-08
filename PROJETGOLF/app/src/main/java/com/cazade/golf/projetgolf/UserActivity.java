@@ -12,7 +12,7 @@ import layout.ProfileFragment;
 
 public class UserActivity extends AppCompatActivity implements ProfileFragment.OnFragmentInteractionListener {
 
-    Fragment user;
+    Fragment profile;
     FragmentManager FM;
 
 
@@ -25,18 +25,17 @@ public class UserActivity extends AppCompatActivity implements ProfileFragment.O
 
         Intent intent = getIntent();
 
-        user = new ProfileFragment();
-
+        profile = new ProfileFragment();
+        Bundle args = new Bundle();
         if (intent != null) {
-
-            user.setPseudo(intent.getStringExtra(USER_PSEUDO));
-            user.setEmail(intent.getStringExtra(USER_EMAIL));
+            args.putAll(intent.getExtras());
         }
+        profile.setArguments(args);
 
 
         FM = getFragmentManager();
         FragmentTransaction FT = FM.beginTransaction();
-        FT.replace(R.id.index_content, user);
+        FT.replace(R.id.index_content, profile);
         FT.commit();
     }
 
