@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import layout.DashBoardFragment;
@@ -87,5 +88,10 @@ public class UserNavActivity extends AppCompatActivity implements ProfileFragmen
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    public void goCourse(View v){
+        Intent intent = new Intent(UserNavActivity.this, CourseActivity.class);
+        startActivity(intent);
     }
 }

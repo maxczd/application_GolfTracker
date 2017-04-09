@@ -1,13 +1,14 @@
 package layout;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import android.support.v4.app.Fragment;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cazade.golf.projetgolf.R;
@@ -19,25 +20,29 @@ public class HoleFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private static final String ARG_PARAM3 = "param3";
+    private static final String ARG_PARAM4 = "param4";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     private String mParam3;
+    private String mParam4;
 
     TextView holeText, parText, distanceText;
+    ImageView carte;
 
     private OnFragmentInteractionListener mListener;
 
     public HoleFragment() {
         // Required empty public constructor
     }
-    public static HoleFragment newInstance(String param1, String param2, String param3) {
+    public static HoleFragment newInstance(String param1, String param2, String param3, String param4) {
         HoleFragment fragment = new HoleFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         args.putString(ARG_PARAM3, param3);
+        args.putString(ARG_PARAM4, param4);
         fragment.setArguments(args);
         return fragment;
     }
@@ -50,6 +55,7 @@ public class HoleFragment extends Fragment {
                 mParam1 = getArguments().getString(ARG_PARAM1);
                 mParam2 = getArguments().getString(ARG_PARAM2);
                 mParam3 = getArguments().getString(ARG_PARAM3);
+                mParam4 = getArguments().getString(ARG_PARAM4);
             }
         }
     }
@@ -65,6 +71,13 @@ public class HoleFragment extends Fragment {
         parText.setText(mParam2);
         distanceText = (TextView) v.findViewById(R.id.distanceText);
         distanceText.setText(mParam3);
+        carte = (ImageView) v.findViewById(R.id.imageViewCarte);
+        Resources res = getResources();
+        String mDrawableName = mParam4;
+        System.out.println(mDrawableName);
+        int resID = res.getIdentifier(mDrawableName , "drawable", getActivity().getPackageName());
+        System.out.println(resID);
+        carte.setImageResource(resID);
         return v;
     }
 

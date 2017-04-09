@@ -52,7 +52,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/signUpB"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/new_play_button" />
+                android:background="@drawable/new_play_button"
+                android:onClick="goCourse"/>
 
         </LinearLayout>
 

@@ -1,5 +1,6 @@
 package com.cazade.golf.projetgolf;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -37,7 +38,7 @@ public class CourseActivity extends AppCompatActivity implements HoleFragment.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course);
-
+        Intent intent = getIntent();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
@@ -128,15 +129,15 @@ public class CourseActivity extends AppCompatActivity implements HoleFragment.On
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
             switch(position){
-                case 0: return HoleFragment.newInstance("1","3", "160");
-                case 1 : return HoleFragment.newInstance("2","4", "240");
-                case 2 : return HoleFragment.newInstance("3","4", "240");
-                case 3 : return HoleFragment.newInstance("4","4", "240");
-                case 4 : return HoleFragment.newInstance("5","4", "240");
-                case 5 : return HoleFragment.newInstance("6","4", "240");
-                case 6 : return HoleFragment.newInstance("7","4", "240");
-                case 7 : return HoleFragment.newInstance("8","4", "240");
-                case 8 : return HoleFragment.newInstance("9","4", "240");
+                case 0: return HoleFragment.newInstance("1","3", "160", "hole1");
+                case 1 : return HoleFragment.newInstance("2","3", "160m", "hole2");
+                case 2 : return HoleFragment.newInstance("3","3", "125m", "hole3");
+                case 3 : return HoleFragment.newInstance("4","3", "90m", "hole4");
+                case 4 : return HoleFragment.newInstance("5","3", "150m", "hole5");
+                case 5 : return HoleFragment.newInstance("6","3", "155", "hole6");
+                case 6 : return HoleFragment.newInstance("7","3", "80m", "hole7");
+                case 7 : return HoleFragment.newInstance("8","3", "150m", "hole8");
+                case 8 : return HoleFragment.newInstance("9","3", "120m", "hole9");
             }
             return null;
         }

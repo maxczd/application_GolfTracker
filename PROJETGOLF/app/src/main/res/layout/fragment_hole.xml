@@ -33,11 +33,10 @@
                 android:textSize="50dp" />
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/imageViewCarte"
                 android:layout_width="321dp"
                 android:layout_height="165dp"
-                android:background="#ffffff"
-                app:srcCompat="@drawable/cartehole" />
+                android:background="#ffffff" />
         </LinearLayout>
 
         <LinearLayout
