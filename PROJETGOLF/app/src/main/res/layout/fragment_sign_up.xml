@@ -112,7 +112,7 @@
             android:layout_gravity="center"
             android:layout_height="wrap_content"
             android:id="@+id/signUpB"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/bg_button" />
     </LinearLayout>
 
