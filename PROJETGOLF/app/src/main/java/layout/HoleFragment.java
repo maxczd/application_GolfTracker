@@ -8,7 +8,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cazade.golf.projetgolf.R;
@@ -30,12 +33,18 @@ public class HoleFragment extends Fragment {
 
     TextView holeText, parText, distanceText;
     ImageView carte;
+    EditText score;
 
     private OnFragmentInteractionListener mListener;
 
     public HoleFragment() {
         // Required empty public constructor
     }
+
+    public int getScore(){
+        return Integer.parseInt(score.getText().toString());
+    }
+
     public static HoleFragment newInstance(String param1, String param2, String param3, String param4) {
         HoleFragment fragment = new HoleFragment();
         Bundle args = new Bundle();
@@ -72,7 +81,25 @@ public class HoleFragment extends Fragment {
         distanceText = (TextView) v.findViewById(R.id.distanceText);
         distanceText.setText(mParam3);
         carte = (ImageView) v.findViewById(R.id.imageViewCarte);
+        score = (EditText) v.findViewById(R.id.score);
         Resources res = getResources();
+        if(mParam4.equals("hole9")){
+
+            Button myButton = new Button(getActivity());
+            myButton.setText("Fin");
+            myButton.setHeight(30);
+            myButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mListener.submitCourse();
+                }
+            });
+
+            LinearLayout ll = (LinearLayout) v.findViewById(R.id.button_end_layout);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            ll.addView(myButton, lp);
+
+        }
         String mDrawableName = mParam4;
         System.out.println(mDrawableName);
         int resID = res.getIdentifier(mDrawableName , "drawable", getActivity().getPackageName());
@@ -118,5 +145,6 @@ public class HoleFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+        void submitCourse();
     }
 }

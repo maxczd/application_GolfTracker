@@ -15,6 +15,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+
 import layout.HoleFragment;
 
 public class CourseActivity extends AppCompatActivity implements HoleFragment.OnFragmentInteractionListener{
@@ -81,6 +83,18 @@ public class CourseActivity extends AppCompatActivity implements HoleFragment.On
 
     }
 
+    @Override
+    public void submitCourse() {
+        ArrayList<Fragment> holes = mSectionsPagerAdapter.getHole();
+        ArrayList<Integer> scores = new ArrayList<Integer>();
+        HoleFragment temp;
+        for(int i=0; i<9; i++){
+            temp = (HoleFragment) holes.get(i);
+            scores.add(temp.getScore());
+        }
+        System.out.println(scores);
+    }
+
     /**
      * A placeholder fragment containing a simple view.
      */
@@ -124,20 +138,31 @@ public class CourseActivity extends AppCompatActivity implements HoleFragment.On
             super(fm);
         }
 
+        HoleFragment hole_1 = HoleFragment.newInstance("1","3", "160m", "hole1");
+        HoleFragment hole_2 = HoleFragment.newInstance("2","3", "160m", "hole2");
+        HoleFragment hole_3 = HoleFragment.newInstance("3","3", "125m", "hole3");
+        HoleFragment hole_4 = HoleFragment.newInstance("4","3", "90m", "hole4");
+        HoleFragment hole_5 = HoleFragment.newInstance("5","3", "150m", "hole5");
+        HoleFragment hole_6 = HoleFragment.newInstance("6","3", "155", "hole6");
+        HoleFragment hole_7 = HoleFragment.newInstance("7","3", "80m", "hole7");
+        HoleFragment hole_8 = HoleFragment.newInstance("8","3", "150m", "hole8");
+        HoleFragment hole_9 = HoleFragment.newInstance("9","3", "120m", "hole9");
+
+
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
             switch(position){
-                case 0: return HoleFragment.newInstance("1","3", "160", "hole1");
-                case 1 : return HoleFragment.newInstance("2","3", "160m", "hole2");
-                case 2 : return HoleFragment.newInstance("3","3", "125m", "hole3");
-                case 3 : return HoleFragment.newInstance("4","3", "90m", "hole4");
-                case 4 : return HoleFragment.newInstance("5","3", "150m", "hole5");
-                case 5 : return HoleFragment.newInstance("6","3", "155", "hole6");
-                case 6 : return HoleFragment.newInstance("7","3", "80m", "hole7");
-                case 7 : return HoleFragment.newInstance("8","3", "150m", "hole8");
-                case 8 : return HoleFragment.newInstance("9","3", "120m", "hole9");
+                case 0 : return hole_1;
+                case 1 : return hole_2;
+                case 2 : return hole_3;
+                case 3 : return hole_4;
+                case 4 : return hole_5;
+                case 5 : return hole_6;
+                case 6 : return hole_7;
+                case 7 : return hole_8;
+                case 8 : return hole_9;
             }
             return null;
         }
@@ -158,6 +183,20 @@ public class CourseActivity extends AppCompatActivity implements HoleFragment.On
                     return "SECTION 3";
             }
             return null;
+        }
+
+        public ArrayList getHole(){
+            ArrayList<HoleFragment> holes = new ArrayList<HoleFragment>();
+            holes.add(hole_1);
+            holes.add(hole_2);
+            holes.add(hole_3);
+            holes.add(hole_4);
+            holes.add(hole_5);
+            holes.add(hole_6);
+            holes.add(hole_7);
+            holes.add(hole_8);
+            holes.add(hole_9);
+            return holes;
         }
     }
 }
