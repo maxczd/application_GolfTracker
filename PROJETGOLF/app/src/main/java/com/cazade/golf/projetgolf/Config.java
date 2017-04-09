@@ -7,6 +7,7 @@ package com.cazade.golf.projetgolf;
 public class Config {
     public static final String REGISTER_URL = "http://82.64.9.145/userRegister.php";
     public static final String LOGIN_URL = "http://82.64.9.145/userLogIn.php";
+    public static final String NEW_PARCOURS = "http://82.64.9.145/registerCourse.php";
     public static final String KEY_USERNAME= "username";
     public static final String KEY_PASSWORD = "password";
     public static final String KEY_HANDICAP = "handicap";

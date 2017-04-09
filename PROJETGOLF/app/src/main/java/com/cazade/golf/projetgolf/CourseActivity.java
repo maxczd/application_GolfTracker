@@ -14,8 +14,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import layout.HoleFragment;
 
@@ -36,11 +49,18 @@ public class CourseActivity extends AppCompatActivity implements HoleFragment.On
      */
     private ViewPager mViewPager;
 
+    final String EXTRA_EMAIL = "user_email";
+    String email;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course);
         Intent intent = getIntent();
+        if (intent != null) {
+            email = intent.getStringExtra(EXTRA_EMAIL);
+            System.out.println(intent.getStringExtra(EXTRA_EMAIL));
+        }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
@@ -86,13 +106,50 @@ public class CourseActivity extends AppCompatActivity implements HoleFragment.On
     @Override
     public void submitCourse() {
         ArrayList<Fragment> holes = mSectionsPagerAdapter.getHole();
-        ArrayList<Integer> scores = new ArrayList<Integer>();
+        final ArrayList<Integer> scores = new ArrayList<Integer>();
         HoleFragment temp;
         for(int i=0; i<9; i++){
             temp = (HoleFragment) holes.get(i);
             scores.add(temp.getScore());
         }
-        System.out.println(scores);
+
+        final JSONObject jsonObject=new JSONObject();
+        for(int i=0;i<9;i++)
+        {
+            try {
+                jsonObject.put("hole_"+i, scores.get(i).toString());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        HashMap<String ,String> params=new HashMap<String, String>();
+        params.put("params",jsonObject.toString());
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.NEW_PARCOURS,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Toast.makeText(CourseActivity.this,response,Toast.LENGTH_LONG).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(CourseActivity.this,error.toString(),Toast.LENGTH_LONG).show();
+                    }
+                }){
+            @Override
+            protected Map<String,String> getParams(){
+                Map<String,String> params = new HashMap<String, String>();
+                params.put(Config.KEY_EMAIL, email);
+                params.put("params", jsonObject.toString());
+                return params;
+            }
+
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
     }
 
     /**

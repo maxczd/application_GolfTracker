@@ -22,7 +22,18 @@
         <activity
             android:name=".UserNavActivity"
             android:label="@string/title_activity_course"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+        >
+            <provider
+                android:name="android.support.v4.content.FileProvider"
+                android:authorities="${applicationId}.provider"
+                android:exported="false"
+                android:grantUriPermissions="true">
+                <meta-data
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/file_paths"/>
+            </provider>
+        </activity>
         <activity
             android:name=".CourseActivity"
             android:label="@string/title_activity_user_nav"></activity>

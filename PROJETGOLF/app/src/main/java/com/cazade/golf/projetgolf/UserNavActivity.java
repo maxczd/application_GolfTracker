@@ -23,8 +23,6 @@ import layout.DashBoardFragment;
 import layout.ProfileFragment;
 import layout.SearchFragment;
 
-import static android.R.attr.value;
-
 public class UserNavActivity extends AppCompatActivity implements ProfileFragment.OnFragmentInteractionListener, DashBoardFragment.OnFragmentInteractionListener, SearchFragment.OnFragmentInteractionListener {
 
     private TextView mTextMessage;
@@ -35,6 +33,8 @@ public class UserNavActivity extends AppCompatActivity implements ProfileFragmen
     final String EXTRA_EMAIL = "user_email";
     final String EXTRA_HANDICAP = "user_handicap";
     final String EXTRA_USERNAME = "user_username";
+
+    String email;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -71,7 +71,7 @@ public class UserNavActivity extends AppCompatActivity implements ProfileFragmen
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
         if (intent != null) {
-            System.out.println(intent.getStringExtra(EXTRA_USERNAME));
+            email = intent.getStringExtra(EXTRA_EMAIL);
             profile = ProfileFragment.newInstance(intent.getStringExtra(EXTRA_EMAIL),intent.getStringExtra(EXTRA_USERNAME),intent.getStringExtra(EXTRA_HANDICAP));
         }
         FM = getSupportFragmentManager();
@@ -92,7 +92,7 @@ public class UserNavActivity extends AppCompatActivity implements ProfileFragmen
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
-    private void dispatchTakePictureIntent(){
+    public void dispatchTakePictureIntent(View v){
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         imageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "profil.jpg");
         Uri tempuri= Uri.fromFile(imageFile);
@@ -125,6 +125,7 @@ public class UserNavActivity extends AppCompatActivity implements ProfileFragmen
 
     public void goCourse(View v){
         Intent intent = new Intent(UserNavActivity.this, CourseActivity.class);
+        intent.putExtra(EXTRA_EMAIL, email);
         startActivity(intent);
     }
 }
