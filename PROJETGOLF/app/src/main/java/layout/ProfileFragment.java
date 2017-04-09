@@ -64,9 +64,9 @@ public class ProfileFragment extends Fragment {
         textEmail.setText(email);
         textHandicap = (TextView) v.findViewById(R.id.textHandicap);
         if(handicap.equals("null")){
-            textHandicap.setText("non défini");
+            textHandicap.setText("Handicap : non défini");
         }else{
-            textHandicap.setText(handicap);
+            textHandicap.setText("Handicap : " + handicap);
         }
         return v;
     }
