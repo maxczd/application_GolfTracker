@@ -41,7 +41,8 @@
             android:layout_gravity="center"
             android:layout_marginTop="50dp"
             android:textAlignment="center"
-            android:textSize="28dp"/>
+            android:textSize="28dp"
+            android:textColor="#000"/>
 
         <TextView
             android:text="maxime.cazade@orange.fr"
@@ -51,7 +52,8 @@
             android:layout_gravity="center"
             android:layout_marginTop="40dp"
             android:textAlignment="center"
-            android:textSize="28dp"/>
+            android:textSize="28dp"
+            android:textColor="#000"/>
 
         <TextView
             android:text="Handicap : 30"
@@ -61,7 +63,8 @@
             android:layout_gravity="center"
             android:layout_marginTop="40dp"
             android:textAlignment="center"
-            android:textSize="28dp"/>
+            android:textSize="28dp"
+            android:textColor="#000"/>
 
 
 

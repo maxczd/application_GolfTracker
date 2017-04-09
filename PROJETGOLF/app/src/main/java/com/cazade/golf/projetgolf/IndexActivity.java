@@ -19,6 +19,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,14 +36,11 @@ public class IndexActivity extends AppCompatActivity implements IndexFragment.On
     Fragment signUp, login, welcome;
     FragmentManager FM;
 
-    public static final String REGISTER_URL = "http://82.64.9.145/userRegister.php";
-    public static final String LOGIN_URL = "http://82.64.9.145/userLogIn.php";
-    public static final String KEY_USERNAME = "username";
-    public static final String KEY_PASSWORD = "password";
-    public static final String KEY_EMAIL = "email";
+    ArrayList<String> result_tab = new ArrayList<String>();
 
-    String USER_PSEUDO = "user_login";
-    String USER_EMAIL = "user_password";
+    final String EXTRA_EMAIL = "user_email";
+    final String EXTRA_HANDICAP = "user_handicap";
+    final String EXTRA_USERNAME = "user_username";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,11 +89,15 @@ public class IndexActivity extends AppCompatActivity implements IndexFragment.On
         final String username = pseudo;
         final String mail = email;
         final String password = pass1;
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, REGISTER_URL,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.REGISTER_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(IndexActivity.this,response,Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(IndexActivity.this, UserNavActivity.class);
+                        intent.putExtra(EXTRA_EMAIL, mail);
+                        intent.putExtra(EXTRA_USERNAME, username);
+                        intent.putExtra(EXTRA_HANDICAP, "null");
+                        startActivity(intent);
                     }
                 },
                 new Response.ErrorListener() {
@@ -103,9 +109,9 @@ public class IndexActivity extends AppCompatActivity implements IndexFragment.On
             @Override
             protected Map<String,String> getParams(){
                 Map<String,String> params = new HashMap<String, String>();
-                params.put(KEY_USERNAME, username);
-                params.put(KEY_PASSWORD, password);
-                params.put(KEY_EMAIL, mail);
+                params.put(Config.KEY_USERNAME, username);
+                params.put(Config.KEY_PASSWORD, password);
+                params.put(Config.KEY_EMAIL, mail);
                 return params;
             }
 
@@ -124,38 +130,60 @@ public class IndexActivity extends AppCompatActivity implements IndexFragment.On
     public void onLoginSubmit(String email, String pass) {
         final String mail = email;
         final String password = pass;
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, LOGIN_URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        System.out.println(response);
-                       if(response.equals("success")){
-                           Intent intent = new Intent(IndexActivity.this, UserActivity.class);
-                           intent.putExtra(USER_EMAIL, mail);
-                           intent.putExtra(USER_PSEUDO, password);
-                           startActivity(intent);
-                       }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(IndexActivity.this,error.toString(),Toast.LENGTH_LONG).show();
-                    }
-                }){
-            @Override
-            protected Map<String,String> getParams(){
-                Map<String,String> params = new HashMap<String, String>();
-                params.put(KEY_EMAIL, mail);
-                params.put(KEY_PASSWORD, password);
-                return params;
-            }
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.LOGIN_URL,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            result_tab = getJSON(response);
+                            Intent intent = new Intent(IndexActivity.this, UserNavActivity.class);
+                            intent.putExtra(EXTRA_EMAIL, result_tab.get(0));
+                            intent.putExtra(EXTRA_USERNAME, result_tab.get(1));
+                            intent.putExtra(EXTRA_HANDICAP, result_tab.get(2));
+                            startActivity(intent);
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(IndexActivity.this,error.toString(),Toast.LENGTH_LONG).show();
+                        }
+                    }){
+                @Override
+                protected Map<String,String> getParams(){
+                    Map<String,String> params = new HashMap<String, String>();
+                    params.put(Config.KEY_EMAIL, mail);
+                    params.put(Config.KEY_PASSWORD, password);
+                    return params;
+                }
 
         };
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
 
+    }
+
+    private ArrayList getJSON(String response){
+        String email="";
+        String handicap="";
+        String username = "";
+        ArrayList<String> result_tab = new ArrayList<String>();
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+            JSONArray result = jsonObject.getJSONArray(Config.JSON_ARRAY);
+            JSONObject collegeData = result.getJSONObject(0);
+            email = collegeData.getString(Config.KEY_EMAIL);
+            handicap = collegeData.getString(Config.KEY_HANDICAP);
+            username = collegeData.getString(Config.KEY_USERNAME);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        result_tab.add(email);
+        result_tab.add(username);
+        result_tab.add(handicap);
+
+        return result_tab;
     }
 
     @Override

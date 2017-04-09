@@ -1,44 +1,54 @@
 package layout;
 
-import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.cazade.golf.projetgolf.R;
 
 
-public class ProfileFragment extends Fragment {
+/**
+ * A simple {@link Fragment} subclass.
+ * Activities that contain this fragment must implement the
+ * {@link SearchFragment.OnFragmentInteractionListener} interface
+ * to handle interaction events.
+ * Use the {@link SearchFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class SearchFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private static final String ARG_PARAM3 = "param3";
-
-    TextView textPseudo, textEmail, textHandicap;
 
     // TODO: Rename and change types of parameters
-    private String email;
-    private String username;
-    private String handicap;
+    private String mParam1;
+    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
-    public ProfileFragment() {
+    public SearchFragment() {
         // Required empty public constructor
     }
 
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment SearchFragment.
+     */
     // TODO: Rename and change types and number of parameters
-    public static ProfileFragment newInstance(String param1, String param2, String param3) {
-        ProfileFragment fragment = new ProfileFragment();
+    public static SearchFragment newInstance(String param1, String param2) {
+        SearchFragment fragment = new SearchFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
-        args.putString(ARG_PARAM3, param3);
         fragment.setArguments(args);
         return fragment;
     }
@@ -47,9 +57,8 @@ public class ProfileFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            email = getArguments().getString(ARG_PARAM1);
-            username = getArguments().getString(ARG_PARAM2);
-            handicap = getArguments().getString(ARG_PARAM3);
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -57,24 +66,13 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_profile, container, false);
-        textPseudo = (TextView) v.findViewById(R.id.textPseudo);
-        textPseudo.setText(username);
-        textEmail = (TextView) v.findViewById(R.id.textEmail);
-        textEmail.setText(email);
-        textHandicap = (TextView) v.findViewById(R.id.textHandicap);
-        if(handicap.equals("null")){
-            textHandicap.setText("non défini");
-        }else{
-            textHandicap.setText(handicap);
-        }
-        return v;
+        return inflater.inflate(R.layout.fragment_search, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onProfileFragmentInteraction(uri);
+            mListener.onFragmentInteraction(uri);
         }
     }
 
@@ -107,13 +105,6 @@ public class ProfileFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onProfileFragmentInteraction(Uri uri);
-    }
-
-    public void setPseudo(String pseudo){
-        textPseudo.setText(pseudo);
-    }
-    public void setEmail(String email){
-        textEmail.setText(email);
+        void onFragmentInteraction(Uri uri);
     }
 }

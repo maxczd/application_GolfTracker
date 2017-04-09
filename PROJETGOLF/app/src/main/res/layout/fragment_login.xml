@@ -28,7 +28,8 @@
             android:ems="10"
             android:id="@+id/email"
             android:hint="Email"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp"
+            android:text="test@test.fr"/>
 
         <EditText
             android:layout_width="300dp"
@@ -37,7 +38,8 @@
             android:inputType="textPassword"
             android:ems="10"
             android:id="@+id/pass"
-            android:hint="Mot de passe" />
+            android:hint="Mot de passe"
+            android:text="test"/>
 
         <Button
             android:layout_width="300dp"
