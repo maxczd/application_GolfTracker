@@ -50,7 +50,11 @@ public class CourseActivity extends AppCompatActivity implements HoleFragment.On
     private ViewPager mViewPager;
 
     final String EXTRA_EMAIL = "user_email";
+    final String EXTRA_HANDICAP = "null";
+    final String EXTRA_USERNAME = "user_username";
     String email;
+    String handicap;
+    String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +63,8 @@ public class CourseActivity extends AppCompatActivity implements HoleFragment.On
         Intent intent = getIntent();
         if (intent != null) {
             email = intent.getStringExtra(EXTRA_EMAIL);
-            System.out.println(intent.getStringExtra(EXTRA_EMAIL));
+            handicap = intent.getStringExtra(EXTRA_HANDICAP);
+            username = intent.getStringExtra(EXTRA_USERNAME);
         }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -129,7 +134,11 @@ public class CourseActivity extends AppCompatActivity implements HoleFragment.On
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(CourseActivity.this,response,Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(CourseActivity.this, UserNavActivity.class);
+                        intent.putExtra(EXTRA_EMAIL, email);
+                        intent.putExtra(EXTRA_USERNAME, username);
+                        intent.putExtra(EXTRA_HANDICAP, handicap);
+                        startActivity(intent);
                     }
                 },
                 new Response.ErrorListener() {

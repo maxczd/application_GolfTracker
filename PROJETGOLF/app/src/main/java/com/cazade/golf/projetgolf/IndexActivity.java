@@ -39,7 +39,7 @@ public class IndexActivity extends AppCompatActivity implements IndexFragment.On
     ArrayList<String> result_tab = new ArrayList<String>();
 
     final String EXTRA_EMAIL = "user_email";
-    final String EXTRA_HANDICAP = "user_handicap";
+    final String EXTRA_HANDICAP = "null";
     final String EXTRA_USERNAME = "user_username";
 
     @Override
@@ -136,6 +136,7 @@ public class IndexActivity extends AppCompatActivity implements IndexFragment.On
                         @Override
                         public void onResponse(String response) {
                             result_tab = getJSON(response);
+
                             Intent intent = new Intent(IndexActivity.this, UserNavActivity.class);
                             intent.putExtra(EXTRA_EMAIL, result_tab.get(0));
                             intent.putExtra(EXTRA_USERNAME, result_tab.get(1));

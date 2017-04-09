@@ -7,9 +7,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cazade.golf.projetgolf.R;
+
+import java.util.ArrayList;
 
 
 public class ProfileFragment extends Fragment {
@@ -18,6 +21,7 @@ public class ProfileFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private static final String ARG_PARAM3 = "param3";
+    private static final ArrayList<ArrayList<String>> ARG_PARAM4 = new ArrayList<ArrayList<String>>();
 
     TextView textPseudo, textEmail, textHandicap;
 
@@ -25,6 +29,8 @@ public class ProfileFragment extends Fragment {
     private String email;
     private String username;
     private String handicap;
+    private ArrayList parcours;
+    private ArrayList<ArrayList> parcours1;
 
     private OnFragmentInteractionListener mListener;
 
@@ -33,12 +39,12 @@ public class ProfileFragment extends Fragment {
     }
 
     // TODO: Rename and change types and number of parameters
-    public static ProfileFragment newInstance(String param1, String param2, String param3) {
+    public static ProfileFragment newInstance(String param1, String param2, String param3, ArrayList param4) {
         ProfileFragment fragment = new ProfileFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
-        args.putString(ARG_PARAM3, param3);
+        args.putStringArrayList("Values", param4);
         fragment.setArguments(args);
         return fragment;
     }
@@ -50,6 +56,7 @@ public class ProfileFragment extends Fragment {
             email = getArguments().getString(ARG_PARAM1);
             username = getArguments().getString(ARG_PARAM2);
             handicap = getArguments().getString(ARG_PARAM3);
+            parcours = getArguments().getStringArrayList("Values");
         }
     }
 
@@ -63,10 +70,14 @@ public class ProfileFragment extends Fragment {
         textEmail = (TextView) v.findViewById(R.id.textEmail);
         textEmail.setText(email);
         textHandicap = (TextView) v.findViewById(R.id.textHandicap);
-        if(handicap.equals("null")){
-            textHandicap.setText("Handicap : non défini");
-        }else{
-            textHandicap.setText("Handicap : " + handicap);
+        textHandicap.setText("Handicap : " + handicap);
+        parcours1 = parcours;
+        for(int i=0; i<parcours.size(); i++){
+            LinearLayout ll = (LinearLayout) v.findViewById(R.id.historyLayout);
+            TextView jeu = new TextView(getActivity());
+            jeu.setText("Parcours Rueil Malmaison, Score :"+ parcours1.get(i).get(1) + " / 2017 ");
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            ll.addView(jeu, lp);
         }
         return v;
     }
