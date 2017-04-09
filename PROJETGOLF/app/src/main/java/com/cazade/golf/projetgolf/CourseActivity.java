@@ -13,7 +13,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
+import layout.HoleFragment;
 
 public class CourseActivity extends AppCompatActivity implements HoleFragment.OnFragmentInteractionListener{
 
@@ -55,6 +56,7 @@ public class CourseActivity extends AppCompatActivity implements HoleFragment.On
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_course, menu);
+        getSupportActionBar().hide();
         return true;
     }
 
@@ -107,8 +109,6 @@ public class CourseActivity extends AppCompatActivity implements HoleFragment.On
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_course, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;
         }
     }
@@ -128,15 +128,22 @@ public class CourseActivity extends AppCompatActivity implements HoleFragment.On
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
             switch(position){
-                case 0: return HoleFragment.newInstance("1","3");
-                case 1 : return HoleFragment.newInstance("2","4");
+                case 0: return HoleFragment.newInstance("1","3", "160");
+                case 1 : return HoleFragment.newInstance("2","4", "240");
+                case 2 : return HoleFragment.newInstance("3","4", "240");
+                case 3 : return HoleFragment.newInstance("4","4", "240");
+                case 4 : return HoleFragment.newInstance("5","4", "240");
+                case 5 : return HoleFragment.newInstance("6","4", "240");
+                case 6 : return HoleFragment.newInstance("7","4", "240");
+                case 7 : return HoleFragment.newInstance("8","4", "240");
+                case 8 : return HoleFragment.newInstance("9","4", "240");
             }
             return null;
         }
 
         @Override
         public int getCount() {
-            return 2;
+            return 9;
         }
 
         @Override

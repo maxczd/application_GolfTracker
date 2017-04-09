@@ -1,4 +1,4 @@
-package com.cazade.golf.projetgolf;
+package layout;
 
 import android.content.Context;
 import android.net.Uri;
@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.support.v4.app.Fragment;
+import android.widget.TextView;
+
+import com.cazade.golf.projetgolf.R;
 
 public class HoleFragment extends Fragment {
 
@@ -15,21 +18,26 @@ public class HoleFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_PARAM3 = "param3";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private String mParam3;
+
+    TextView holeText, parText, distanceText;
 
     private OnFragmentInteractionListener mListener;
 
     public HoleFragment() {
         // Required empty public constructor
     }
-    public static HoleFragment newInstance(String param1, String param2) {
+    public static HoleFragment newInstance(String param1, String param2, String param3) {
         HoleFragment fragment = new HoleFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_PARAM3, param3);
         fragment.setArguments(args);
         return fragment;
     }
@@ -41,6 +49,7 @@ public class HoleFragment extends Fragment {
             if (getArguments() != null) {
                 mParam1 = getArguments().getString(ARG_PARAM1);
                 mParam2 = getArguments().getString(ARG_PARAM2);
+                mParam3 = getArguments().getString(ARG_PARAM3);
             }
         }
     }
@@ -50,7 +59,12 @@ public class HoleFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_hole, container, false);
-
+        holeText = (TextView) v.findViewById(R.id.holeText);
+        holeText.setText(mParam1);
+        parText = (TextView) v.findViewById(R.id.parText);
+        parText.setText(mParam2);
+        distanceText = (TextView) v.findViewById(R.id.distanceText);
+        distanceText.setText(mParam3);
         return v;
     }
 

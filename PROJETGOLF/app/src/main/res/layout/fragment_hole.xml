@@ -1,118 +1,122 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.cazade.golf.projetgolf.HoleFragment">
+    tools:context="com.cazade.golf.projetgolf.layout.HoleFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
         android:id="@+id/activity_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:orientation="vertical"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
-        tools:context="com.cazade.golf.projetgolf.MainActivity"
-        android:orientation="vertical"
-        android:background="#ffffff">
+        android:weightSum="1"
+        tools:context="com.cazade.golf.projetgolf.MainActivity">
 
         <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:text="1"
-                android:textSize="50dp"
-                android:id="@+id/holeText"
-                android:textColor="#000000"/>
-
-            <ImageView
-                android:layout_width="321dp"
-                android:layout_height="165dp"
-                app:srcCompat="@drawable/cartehole"
-                android:id="@+id/imageView"
-                android:background="#ffffff"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="40dp">
-            <TextView
-                android:text="Par"
-                android:layout_width="70dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/parText"
-                android:textSize="30dp"
-                android:textColor="#000000"/>
+            android:orientation="horizontal">
 
             <TextView
-                android:text="3"
-                android:layout_width="70dp"
-                android:layout_height="40dp"
-                android:id="@+id/parVarText"
-                android:textSize="30dp"
-                android:textColor="#000000"/>
+                android:id="@+id/holeText"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:text="1"
+                android:textColor="#000000"
+                android:textSize="50dp" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="321dp"
+                android:layout_height="165dp"
+                android:background="#ffffff"
+                app:srcCompat="@drawable/cartehole" />
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="40dp"
-            android:textColor="#000000">
+            android:orientation="horizontal">
 
             <TextView
-                android:text="Distance"
-                android:layout_width="150dp"
-                android:layout_height="40dp"
-                android:id="@+id/distanceText"
-                android:textSize="30dp"
-                android:textColor="#000000"/>
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:text="Par"
+                android:textColor="#000000"
+                android:textSize="30dp" />
 
             <TextView
-                android:text="236 m"
-                android:layout_width="150dp"
+                android:id="@+id/parText"
+                android:layout_width="70dp"
                 android:layout_height="40dp"
-                android:id="@+id/distanceVarText"
-                android:textSize="30dp"
-                android:textColor="#000000"/>
+                android:text="3"
+                android:textColor="#000000"
+                android:textSize="30dp" />
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="60dp">
+            android:layout_marginTop="40dp"
+            android:orientation="horizontal"
+            android:textColor="#000000">
 
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:text="Distance"
+                android:textColor="#000000"
+                android:textSize="30dp" />
+
+            <TextView
+                android:id="@+id/distanceText"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:text="236 m"
+                android:textColor="#000000"
+                android:textSize="30dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginTop="60dp"
+            android:layout_weight="0.30"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="#ffffff"
+                app:srcCompat="@drawable/next" />
 
             <EditText
+                android:id="@+id/editText"
                 android:layout_width="100dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center_vertical"
-                android:inputType="number"
-                android:ems="10"
-                android:id="@+id/editText"
                 android:background="#ebebeb"
-                android:layout_marginLeft="120dp"
-                android:layout_marginRight="20dp"/>
+                android:ems="10"
+                android:inputType="number" />
 
             <ImageButton
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                app:srcCompat="@drawable/next"
-                android:id="@+id/next"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_weight="1"
-                android:background="#ffffff"/>
+                android:background="#ffffff"
+                app:srcCompat="@drawable/next" />
 
         </LinearLayout>
 
