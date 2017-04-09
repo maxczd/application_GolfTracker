@@ -1,8 +1,11 @@
 package com.cazade.golf.projetgolf;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -11,11 +14,16 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.io.File;
 
 import layout.DashBoardFragment;
 import layout.ProfileFragment;
 import layout.SearchFragment;
+
+import static android.R.attr.value;
 
 public class UserNavActivity extends AppCompatActivity implements ProfileFragment.OnFragmentInteractionListener, DashBoardFragment.OnFragmentInteractionListener, SearchFragment.OnFragmentInteractionListener {
 
@@ -78,6 +86,31 @@ public class UserNavActivity extends AppCompatActivity implements ProfileFragmen
         setContentView(R.layout.activity_user_nav);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+    }
+
+    private File imageFile;
+
+    static final int REQUEST_IMAGE_CAPTURE = 1;
+
+    private void dispatchTakePictureIntent(){
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        imageFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "profil.jpg");
+        Uri tempuri= Uri.fromFile(imageFile);
+        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, tempuri);
+        takePictureIntent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
+        if(takePictureIntent.resolveActivity(getPackageManager()) != null){
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            ImageView mImageView = (ImageView) findViewById(R.id.user_profile_photo);
+            mImageView.setImageBitmap(imageBitmap);
+        }
     }
 
     @Override

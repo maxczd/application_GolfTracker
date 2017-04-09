@@ -44,13 +44,14 @@
 
 
                 <ImageView
-                    android:id="@+id/add_friend"
+                    android:id="@+id/add_photo"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_toLeftOf="@+id/drop_down_option_menu"
-                    android:src="@drawable/photo_camera" />
+                    android:src="@drawable/photo_camera"
+                    android:onClick="dispatchTakePictureIntent"/>
 
                 <ImageView
                     android:id="@+id/drop_down_option_menu"
